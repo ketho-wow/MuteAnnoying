@@ -2,6 +2,7 @@ local _, ns = ...
 
 for _, group in pairs(ns) do
 	for fdid in pairs(group) do
-		MuteSoundFile(fdid)
+		if not unmute[fdid] do 
+			MuteSoundFile(fdid)
 	end
 end

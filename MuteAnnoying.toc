@@ -10,5 +10,6 @@ Sounds/item.lua
 Sounds/sounds.lua
 Sounds/spells.lua
 Sounds/vehicles.lua
+Sounds/custom.lua
 
 MuteAnnoying.lua
