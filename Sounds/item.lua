@@ -1,6 +1,6 @@
 local _, ns = ...
 
-ns.item = {
+ns.mute.item = {
 	[567585] = "Sound/Item/FoleySounds/ChainFoley01.ogg",
 	[567600] = "Sound/Item/FoleySounds/ChainFoley02.ogg",
 	[567597] = "Sound/Item/FoleySounds/ChainFoley03.ogg",

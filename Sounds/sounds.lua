@@ -1,6 +1,6 @@
 local _, ns = ...
 
-ns.sounds = {
+ns.mute.sounds = {
 	[538970] = "Sound/Ambience/GlueScreen/Wrath_Login_1.ogg",
 	[538969] = "Sound/Ambience/GlueScreen/Wrath_Login_2.ogg",
 	[538971] = "Sound/Ambience/GlueScreen/Wrath_Login_3.ogg",

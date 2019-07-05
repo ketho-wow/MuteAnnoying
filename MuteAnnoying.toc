@@ -4,12 +4,12 @@
 ## Notes: Mutes Annoying Sounds
 ## Author: Ketho @ EU-Boulderfist
 
+Sounds/custom.lua
 Sounds/character.lua
 Sounds/creature.lua
 Sounds/item.lua
 Sounds/sounds.lua
 Sounds/spells.lua
 Sounds/vehicles.lua
-Sounds/custom.lua
 
 MuteAnnoying.lua

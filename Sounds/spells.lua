@@ -1,6 +1,6 @@
 local _, ns = ...
 
-ns.spells = {
+ns.mute.spells = {
 	[568850] = "Sound/Spells/AbolishMagic.ogg",
 	[569143] = "Sound/Spells/AchievmentSound1.ogg",
 	[568594] = "Sound/Spells/AcidBreath.ogg",

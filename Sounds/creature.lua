@@ -1,6 +1,6 @@
 local _, ns = ...
 
-ns.creature = {
+ns.mute.creature = {
 	[543796] = "Sound/Creature/AncientProtector/mAncientStep1.ogg",
 	[543787] = "Sound/Creature/AncientProtector/mAncientStep2.ogg",
 	[543794] = "Sound/Creature/AncientProtector/mAncientStep3.ogg",
