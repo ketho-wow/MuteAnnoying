@@ -2,3 +2,4 @@ package-as: MuteAnnoying
 
 ignore:
   - README.md
+  - Converter
