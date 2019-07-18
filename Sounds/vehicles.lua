@@ -1,6 +1,4 @@
-local _, ns = ...
-
-ns.mute.vehicles = {
+MuteAnnoying.mute.vehicles = {
 	[569844] = "Sound/Vehicles/VehicleDismount.ogg",
 	[569848] = "Sound/Vehicles/VehicleDismount_Organic.ogg",
 	[569843] = "Sound/Vehicles/VehicleMount.ogg",

@@ -3,6 +3,7 @@
 ## Title: MuteAnnoying
 ## Notes: Mutes Annoying Sounds
 ## Author: Ketho @ EU-Boulderfist
+## SavedVariables: MuteAnnoyingDB
 
 Sounds/custom.lua
 Sounds/character.lua

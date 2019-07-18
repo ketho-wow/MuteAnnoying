@@ -1,14 +1,55 @@
-local _, ns = ...
-local unmute = ns.unmute
+local unmute = MuteAnnoying.unmute
+local mute = MuteAnnoying.mute
+local custom = MuteAnnoying.custom
+local db
 
-for _, group in pairs(ns.mute) do
-	for fdid in pairs(group) do
-		if not unmute[fdid] then 
-			MuteSoundFile(fdid)
+local defaults = {
+	db_version = 0.1,
+	custom_mute = {},
+	custom_unmute = {},
+}
+
+local f = CreateFrame("Frame")
+
+function f:OnEvent(event, addon)
+	if addon == "MuteAnnoying" then
+		-- set up db
+		if not MuteAnnoyingDB or MuteAnnoyingDB.db_version < defaults.db_version then
+			MuteAnnoyingDB = CopyTable(defaults)
+		end
+		db = MuteAnnoyingDB
+
+		-- import custom sounds
+		custom_mute = db.custom_mute
+		custom_unmute = db.custom_unmute
+		for k, v in pairs(MuteAnnoying.custom) do
+			custom_mute[k] = v
+		end
+		for k, v in pairs(MuteAnnoying.unmute) do
+			custom_unmute[k] = v
+		end
+
+		MuteAnnoying:MuteSounds()
+		MuteAnnoying:MuteCustomSounds()
+		self:UnregisterEvent(event)
+	end
+end
+
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", f.OnEvent)
+
+function MuteAnnoying:MuteSounds()
+	for _, group in pairs(self.mute) do
+		for fdid in pairs(group) do
+			if not unmute[fdid] then
+				MuteSoundFile(fdid)
+			end
 		end
 	end
 end
 
--- allow access by any other addon
--- in case they want to modify mute.custom or ns.unmute
-MuteAnnoying = ns
+function MuteAnnoying:MuteCustomSounds()
+	for fdid in pairs(custom_mute) do
+		MuteSoundFile(fdid)
+	end
+end

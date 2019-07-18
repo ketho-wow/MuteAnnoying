@@ -1,6 +1,4 @@
-local _, ns = ...
-
-ns.mute.character = {
+MuteAnnoying.mute.character = {
 	[539295] = "Sound/Character/BloodElf/BloodElfFemaleCry01.ogg",
 	[539219] = "Sound/Character/BloodElf/BloodElfFemaleTrain01.ogg",
 	[539355] = "Sound/Character/BloodElf/BloodElfMaleCry01.ogg",
