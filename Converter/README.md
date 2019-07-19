@@ -12,7 +12,7 @@ In Patch 8.2.0 you can't replace sounds anymore by placing a file in the **Sound
 
 * Dependencies:
     * curl: https://curl.haxx.se/
-    * Lua-cURL: https://luarocks.org/modules/moteus/lua-curl
+    * lua-curl: https://luarocks.org/modules/moteus/lua-curl
     * csv: https://luarocks.org/modules/geoffleyland/csv
 
 * Output:
