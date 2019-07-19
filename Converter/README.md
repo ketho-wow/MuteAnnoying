@@ -10,12 +10,12 @@ In Patch 8.2.0 you can't replace sounds anymore by placing a file in the **Sound
 
 2. Run `main.lua`
 
-* Dependencies:
+* Dependencies, partially from [WoWtoolsParser](https://github.com/Ketho/WoWtoolsParser):
     * curl: https://curl.haxx.se/
     * lua-curl: https://luarocks.org/modules/moteus/lua-curl
     * csv: https://luarocks.org/modules/geoffleyland/csv
 
 * Output:
-    * `missing.lua` Sound paths that failed to match a FDID.
     * `MuteAnnoying.lua` Example with FDIDs (and unused sound path).
     * `MuteSoundFile_soundList.lua` FDIDs you can paste into the [MuteSoundFile](https://github.com/funkydude/MuteSoundFile) addon's savedvariables.
+    * `missing.lua` Sound paths that failed to match a FDID.
