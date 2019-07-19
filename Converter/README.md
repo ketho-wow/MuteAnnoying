@@ -16,6 +16,6 @@ In Patch 8.2.0 you can't replace sounds anymore by placing a file in the **Sound
     * csv: https://luarocks.org/modules/geoffleyland/csv
 
 * Output:
-    * `MuteAnnoying.lua` Example addon with FDIDs (and unused sound path).
     * `missing.lua` Sound paths that failed to match a FDID.
+    * `MuteAnnoying.lua` Example with FDIDs (and unused sound path).
     * `MuteSoundFile_soundList.lua` FDIDs you can paste into the [MuteSoundFile](https://github.com/funkydude/MuteSoundFile) addon's savedvariables.
