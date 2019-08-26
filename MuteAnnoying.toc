@@ -4,13 +4,21 @@
 ## Notes: Mutes Annoying Sounds
 ## Author: Ketho @ EU-Boulderfist
 ## SavedVariables: MuteAnnoyingDB
-
-Sounds/custom.lua
-Sounds/character.lua
-Sounds/creature.lua
-Sounds/item.lua
-Sounds/sounds.lua
-Sounds/spells.lua
-Sounds/vehicles.lua
+## X-Curse-Project-ID: 326029
+## X-WoWI-ID: 25177
 
 MuteAnnoying.lua
+Sounds/custom.lua
+
+Sounds/ambience.lua
+Sounds/character.lua
+Sounds/creature.lua
+Sounds/doodad.lua
+Sounds/emitters.lua
+Sounds/event.lua
+Sounds/events.lua
+Sounds/interface.lua
+Sounds/item.lua
+Sounds/spells.lua
+Sounds/universal.lua
+Sounds/vehicles.lua

@@ -1,6 +1,5 @@
-local unmute = MuteAnnoying.unmute
-local mute = MuteAnnoying.mute
-local custom = MuteAnnoying.custom
+MuteAnnoying = {}
+MuteAnnoying.mute = {}
 local db
 
 local defaults = {
@@ -39,6 +38,7 @@ f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", f.OnEvent)
 
 function MuteAnnoying:MuteSounds()
+	local unmute = MuteAnnoying.unmute
 	for _, group in pairs(self.mute) do
 		for fdid in pairs(group) do
 			if not unmute[fdid] then

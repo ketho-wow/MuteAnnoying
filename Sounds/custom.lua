@@ -1,7 +1,5 @@
-MuteAnnoying = {}
-MuteAnnoying.mute = {}
 -- New updates will ovewrwrite this file but custom sounds will be automatically stored
--- in savedvariables. its still advised to keep a backup
+-- in savedvariables.  It's still advised to keep a backup
 
 -- Use the following table to ADD additional sounds to be muted which are not included
 -- in the addon proper.  For example, this would be the place to add sounds which you
