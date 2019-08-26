@@ -1,93 +1,98 @@
 require "parser"
 
-local function GetListfileSounds()
-	local sounds = {}
+local folders = {
+	"ambience",
+	"character",
+	"creature",
+	"doodad",
+	"emitters",
+	"event",
+	"events",
+	"interface",
+	"item",
+	"spells",
+	"universal",
+	"vehicles",
+}
 
-	local function ParseListfile(file)
-		print("Parsing listfile...")
+local function GetSoundsListfile()
+	print("Getting listfile...")
+	local lfPath, lfStem = {}, {}
+	GetListfile(function(file)
+		print("Parsing listfile...") -- this gonna take a while
 		for line in file:lines() do
-			local fdid, path = line[1], line[2]
-			if path:find("%.ogg$") then
-				sounds[fdid] = path
+			local fdid, path = tonumber(line[1]), line[2]
+			local _, _, stem = path:find(".+/(.-)%.ogg$") -- cba to include mp3
+			if stem then
+				lfPath[fdid] = path
+				lfStem[stem] = fdid
 			end
 		end
-		print("Finished parsing!\n")
-	end
-
-	print("Getting listfile...")
-	GetListfile(ParseListfile)
-	return sounds
+		print("Finished parsing!")
+	end)
+	return lfPath, lfStem
 end
 
-local listfileSounds = GetListfileSounds()
-
--- dumped with powershell https://www.curseforge.com/wow/addons/mute-wow-sounds
-local MuteAnnoyingWowSounds = require("input/muteannoyingwowsounds")
-
--- reverse lookup table
-local revListFile = {}
-for k, v in pairs(listfileSounds) do
-	revListFile[v] = k
-end
-
-local function WriteMuteAnnoying(file)
-	file:write('local sounds = {\n')
-	for _, v in pairs(MuteAnnoyingWowSounds) do
-		local fdid = revListFile[v:lower()]
+local function FindFileDataID(lfPath, lfStem)
+	-- https://www.curseforge.com/wow/addons/mute-wow-sounds
+	local in_MAWS = require("input/muteannoyingwowsounds")
+	local sounds, missing = {}, {}
+	for _, path in pairs(in_MAWS) do
+		-- get only file stem since some paths changed while the stem didnt
+		local _, _, stem = path:lower():find(".+/(.-)%.ogg$")
+		local fdid = tonumber(lfStem[stem])
 		if fdid then
-			file:write(string.format('\t[%d] = "%s",\n', fdid, v))
+			sounds[fdid] = lfPath[fdid]
+		else
+			table.insert(missing, path)
 		end
 	end
-	file:write([[
-}
-
-for fdid in pairs(sounds) do
-	MuteSoundFile(fdid)
-end
-]])
-	return file
+	return sounds, missing
 end
 
-local numFound, numMissing = 0, 0
+local function WriteFiles()
+	local path, stem = GetSoundsListfile()
+	local sounds, missing = FindFileDataID(path, stem)
+	-- get github added data
+	local added_github = require("input/added_github")
+	for fdid, path in pairs(added_github) do
+		sounds[fdid] = path
+	end
+	-- write files
+	for _, group in pairs(folders) do
+		local file = io.open("output/"..group..".lua", "w")
+		local sorted = {}
+		for fdid, path in pairs(sounds) do
+			if path:find("sound/"..group) then
+				table.insert(sorted, {fdid, path})
+			end
+		end
+		table.sort(sorted, function(a, b)
+			return a[2] < b[2]
+		end)
+		file:write("MuteAnnoying.mute."..group.." = {\n")
+		for _, v in pairs(sorted) do
+			file:write(string.format('\t[%d] = "%s",\n', v[1], v[2]))
+		end
+		file:write("}\n")
+		file:close()
+	end
 
-local function WriteMuteSoundFile(file)
-	-- MuteSoundFile addon savedvariables
-	-- Im confused why Funkydude uses file paths instead of fdids as keys
-	file:write('\t\t\t["soundList"] = {\n')
-	for _, v in pairs(MuteAnnoyingWowSounds) do
-		local fdid = revListFile[v:lower()]
-		if fdid then
-			file:write(string.format('\t\t\t\t["%s"] = %d,\n', v, fdid))
-			numFound = numFound + 1
+	table.sort(missing)
+	local missingFile = io.open("output/missing.txt", "w")
+	for _, path in pairs(missing) do
+		missingFile:write(path.."\n")
+	end
+	missingFile:close()
+	--[[ print added sounds from found.txt by schlumpf
+	local found_schlumpf = require("input/found_schlumpf")
+	for fdid, path in pairs(found_schlumpf) do
+		if not sounds[fdid] and path:find("%.ogg$") then
+			print("found schlumpf", fdid, path)
 		end
 	end
-	file:write('\t\t\t},\n')
-	return file
+	]]
+	print("Finished writing files")
 end
 
-local function WriteMissing(file)
-	for _, v in pairs(MuteAnnoyingWowSounds) do
-		local fdid = revListFile[v:lower()]
-		if not fdid then
-			file:write(string.format('%s\n', v))
-			numMissing = numMissing + 1
-		end
-	end
-	return file
-end
-
-local output = {
-	["MuteAnnoying.lua"] = WriteMuteAnnoying,
-	["MuteSoundFile_soundList.lua"] = WriteMuteSoundFile,
-	["missing.lua"] = WriteMissing,
-}
-
-for name, func in pairs(output) do
-	print("Writing "..name)
-	local file = io.open("output/"..name, "w")
-	func(file):close()
-end
-
-print("\nsizeAnnoying", #MuteAnnoyingWowSounds)
-print("numFound", numFound)
-print("numMissing", numMissing)
+WriteFiles()
