@@ -1,5 +1,4 @@
 .luacheckrc
-.release
 .vscode
 *.csv
 Converter/output/*.lua
