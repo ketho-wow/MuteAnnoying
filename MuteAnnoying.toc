@@ -1,4 +1,4 @@
-## Interface: 90002
+## Interface: 120001, 50503, 20505, 11508
 ## Version: @project-version@
 ## Title: MuteAnnoying
 ## Notes: Mutes Annoying Sounds
@@ -6,6 +6,7 @@
 ## SavedVariables: MuteAnnoyingDB
 ## X-Curse-Project-ID: 326029
 ## X-WoWI-ID: 25177
+## X-Wago-ID: BKpg4r6E
 
 MuteAnnoying.lua
 Sounds/custom.lua
