@@ -1,6 +1,7 @@
 MuteAnnoying = {}
 MuteAnnoying.mute = {}
 local db
+local custom_mute, custom_unmute
 
 local defaults = {
 	db_version = 0.1,
